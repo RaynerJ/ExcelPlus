@@ -65,6 +65,7 @@
 <p>And finally the JavaScript code:</p>
 <pre class="prettyprint lang-js">
 var oExcel = new ExcelPlus();
+alert("Erro: "+oExcel.error);
 oExcel.openRemote({
   idButton:'file-excel',
   flashPath:'/some/where/dist/swfobject/',
