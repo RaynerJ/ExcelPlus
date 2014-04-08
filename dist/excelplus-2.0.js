@@ -162,6 +162,7 @@ ExcelPlus.prototype = {
       // then the file will be read with Flash or FileAPI
       Flash.createButton(params.idButton, function(name,base64) {
         _this.filename = name;
+        alert(base64)
         // then call our function
         _this.oFile = xlsx(base64);
         _this.nbSheets = _this.oFile.worksheets.length;
@@ -658,7 +659,6 @@ var Flash = {
     * @param {String} base64 It's the base64 version of the file
     */
   getFileData: function(name, base64) {
-    alert("gretFileDate")
     __Flash_getFileData_callback(name,base64);
   },
   /** 
