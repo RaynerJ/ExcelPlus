@@ -79,6 +79,11 @@ oExcel.openRemote({
 })
 </pre>
 
+<p>Make sure you ask for the last version of IE with the below metatag in the HEAD:</p>
+<pre class="prettyprint lang-html">
+  &lt;meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+</pre>
+
 <h3>
 <a name="live-example" class="anchor" href="#live-example"><span class="octicon octicon-link"></span></a>Live Example</h3>
 
@@ -88,7 +93,6 @@ oExcel.openRemote({
 <script type="text/javascript">
 $(document).ready(function() {
   var oExcel = new ExcelPlus();
-  alert("Error: '"+oExcel.error+"'")
   oExcel.openRemote({
     idButton:'file-excel',
     flashPath:'/ExcelPlus/dist/swfobject/',

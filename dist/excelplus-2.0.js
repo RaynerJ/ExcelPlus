@@ -78,7 +78,7 @@ function ExcelPlus(params) {
 
   params = params || {};
   this.error = "";
-  
+
   // check if we can use ActiveX here
   this.canActiveX = (params.useActiveX !== false ? this._init() : false);
 
@@ -621,16 +621,20 @@ var Flash = {
     
     // check if the FileReader API exists... if not then load the Flash object
     if (typeof FileReader !== "function") {
+      alert("ici")
       // we call swfobject.js
       if (swfobject == undefined) {
         var fileref=document.createElement('script');
         fileref.setAttribute("type","text/javascript")
         fileref.setAttribute("src", __ExcelPlus_flashPath+"/swfobject.js");
         document.getElementsByTagName("head")[0].appendChild(fileref);
+        alert("fileref="+fileref);
         // wait for the file to be loaded
         return this._waitForObjectToBeLoaded(id,callback);
-      } else
+      } else {
+        alert("embended")
         swfobject.embedSWF(__ExcelPlus_flashPath+"/FileToDataURI.swf", id, "100px", "40px", "10", __ExcelPlus_flashPath+"/expressInstall.swf", {}, {}, {});
+      }
     } else {
       // replace the <object> by an input file
       $("#"+id).replaceWith('<input id="'+id+'" type="file" />');
