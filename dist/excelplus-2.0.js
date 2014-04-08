@@ -4,27 +4,7 @@
  * Copyright 2013, aymeric@kodono.info
  * Licensed under GPL Version 3 licenses.
  *
- * <script type="text/javascript" src="../Global%20Documents/js/xlsx.js"></script>
- * <script type="text/javascript" src="../Global%20Documents/js/jszip/jszip-all.min.js"></script>
- * <script type="text/javascript" src="../Global%20Documents/js/excelplus-2.0.js"></script>
- * <object id="file-excel" />
- * <script>
- * var oExcel = new ExcelPlus();
- * // create a button to open a remote file
- * oExcel.openRemote({
- *   idButton:'file-excel',
- *   flashPath:'/some/where/swfobject/',
- *   readCallback:function(name,base64) {
- *     console.log(this.getSheetNames()); // list of the worksheets
- *     // if there are several sheets you need to define which one to read:
- *     if (this.nbSheets > 1) this.selectSheet(1); // the first sheet is the one to read
- *     // you can show the sheet names with : `this.getSheetNames()`
- *     console.log("Value in the cell A2 - "+this.read("A2"));
- *     console.log("Values in the cells A1:B3 - "+this.read("A1:B3"));
- *     // we can also get the full sheet content into a 2D-array with `this.readAll()`
- *   }
- * })
- * </script>
+ * http://aymkdn.github.io/ExcelPlus/
  */
 
 // Global variables
@@ -162,7 +142,6 @@ ExcelPlus.prototype = {
       // then the file will be read with Flash or FileAPI
       Flash.createButton(params.idButton, function(name,base64) {
         _this.filename = name;
-        alert(base64)
         // then call our function
         _this.oFile = xlsx(base64);
         _this.nbSheets = _this.oFile.worksheets.length;
@@ -172,7 +151,7 @@ ExcelPlus.prototype = {
       })
     }
   },
-  // open an excepting Excel file
+  // open an existing Excel file
   // @param path is the path to the file
   // @param visible (default: false) show the opened file on the screen
   open:function(path, visible) {
@@ -358,11 +337,11 @@ ExcelPlus.prototype = {
     if (!isNaN(color)) return color;
     switch (color) {
       case "black":     return 1;
-      case "white":	    return 2;
+      case "white":     return 2;
       case "red":       return 3;
       case "green":     return 4;
       case "darkblue":  return 5;
-      case "blue":	    return 23;
+      case "blue":      return 23;
       case "yellow":    return 6;
       case "magenta":   return 7;
       case "cyan":      return 8;
@@ -394,9 +373,9 @@ ExcelPlus.prototype = {
     var isCell   = this._isCell(range);
     var isColumn = this._isColumn(range);
     var column   = "";
-  	var row      = "";
-  	var cell     = "";
-	
+    var row      = "";
+    var cell     = "";
+  
     if (!isCell && !isRange && !isColumn) {
       this.error = "The range provided is not a range, neither a cell, neither a column!";
       return false;
@@ -406,15 +385,15 @@ ExcelPlus.prototype = {
     if (isCell) {
       cell   = this._getCellCoord(range);
       if (cell === false) return false;
-	  column = this._getColumnName(cell.column)+":"+this._getColumnName(cell.column);
-	  row    = cell.row+":"+cell.row;
+    column = this._getColumnName(cell.column)+":"+this._getColumnName(cell.column);
+    row    = cell.row+":"+cell.row;
     }
-	
+  
     if (isRange) {
       var tmp = range.match(/([A-Z]+)([0-9]+):([A-Z]+)([0-9]+)/);
-	  if (tmp == null || tmp.length != 5) return false;
-	  column  = tmp[1]+":"+tmp[3];
-	  row     = tmp[2]+":"+tmp[4];
+    if (tmp == null || tmp.length != 5) return false;
+    column  = tmp[1]+":"+tmp[3];
+    row     = tmp[2]+":"+tmp[4];
     }
     
     // build an array based on the {}
@@ -659,8 +638,7 @@ var Flash = {
     * @param {String} base64 It's the base64 version of the file
     */
   getFileData: function(name, base64) {
-    alert("name="+name)
-    alert("here:"+base64)
+    if (base64===undefined) { base64=name; name="Unknown Name" }
     __Flash_getFileData_callback(name,base64);
   },
   /** 
