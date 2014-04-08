@@ -17,7 +17,7 @@
  *   readCallback:function(name,base64) {
  *     console.log(this.getSheetNames()); // list of the worksheets
  *     // if there are several sheets you need to define which one to read:
- *     if (this.nbSheets > 1) this.activeSheet(1); // the first sheet is the one to read
+ *     if (this.nbSheets > 1) this.selectSheet(1); // the first sheet is the one to read
  *     // you can show the sheet names with : `this.getSheetNames()`
  *     console.log("Value in the cell A2 - "+this.read("A2"));
  *     console.log("Values in the cells A1:B3 - "+this.read("A1:B3"));
@@ -77,7 +77,7 @@ function ExcelPlus(params) {
   this.filename = ""; // name of the file we read
 
   params = params || {};
-    
+
   // check if we can use ActiveX here
   this.canActiveX = (params.useActiveX !== false ? this._init() : false);
 

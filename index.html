@@ -105,20 +105,22 @@ oExcel.openRemote({
 <object id="file-excel" />
 <ul id="result"></ul>
 <script type="javascript">
-var oExcel = new ExcelPlus();
-oExcel.openRemote({
-  idButton:'file-excel',
-  flashPath:'/ExcelPlus/dist/swfobject/',
-  readCallback:function(name,base64) {
-    var $list = $('#result');
-    $list.append('<li>Number of sheets: '+this.nbSheets+'</li>');
-    $list.append('<li>Name of the first sheet: '+this.getSheetNames()[0])
-    // if there are several sheets you need to define which one to read:
-    if (this.nbSheets > 1) this.activeSheet(1); // the first sheet is the one to read
-    $list.append("Value in the cell A1: "+this.read("A1"));
-    var range=this.read("A2:B3");
-    $list.append("Values in the cells A2:A3 - "+range[0][0]+" "+range[0][1]);
-  }
+$(document).ready(function() {
+  var oExcel = new ExcelPlus();
+  oExcel.openRemote({
+    idButton:'file-excel',
+    flashPath:'/ExcelPlus/dist/swfobject/',
+    readCallback:function(name,base64) {
+      var $list = $('#result');
+      $list.append('<li>Number of sheets: '+this.nbSheets+'</li>');
+      $list.append('<li>Name of the first sheet: '+this.getSheetNames()[0])
+      // if there are several sheets you need to define which one to read:
+      if (this.nbSheets > 1) this.selectSheet(1); // the first sheet is the one to read
+      $list.append("Value in the cell A1: "+this.read("A1"));
+      var range=this.read("A2:B3");
+      $list.append("Values in the cells A2:A3 - "+range[0][0]+" "+range[0][1]);
+    }
+  })
 })
 </script>
 
