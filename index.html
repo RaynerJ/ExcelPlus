@@ -65,7 +65,6 @@
 <p>And finally the JavaScript code:</p>
 <pre class="prettyprint lang-js">
 var oExcel = new ExcelPlus();
-alert("Erro: "+oExcel.error);
 oExcel.openRemote({
   idButton:'file-excel',
   flashPath:'/some/where/dist/swfobject/',
@@ -91,8 +90,9 @@ $(document).ready(function() {
   var jscript_version = undefined;
   /*@cc_on jscript_version = @_jscript_version; @*/
   var isIE = (jscript_version !== undefined);
-
-  var oExcel = new ExcelPlus({useActiveX:true});
+  
+  var oExcel = new ExcelPlus({useActiveX:false});
+  alert("Error: "+oExcel.error);
   oExcel.openRemote({
     idButton:'file-excel',
     flashPath:'/ExcelPlus/dist/swfobject/',
