@@ -659,8 +659,7 @@ var Flash = {
     * @param {String} base64 It's the base64 version of the file
     */
   getFileData: function(name, base64) {
-    alert("Flash path:"+__ExcelPlus_flashPath)
-    aler("name="+name)
+    alert("name="+name)
     alert("here:"+base64)
     __Flash_getFileData_callback(name,base64);
   },
