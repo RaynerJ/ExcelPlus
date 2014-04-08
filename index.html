@@ -7,7 +7,14 @@
     <meta name="description" content="ExcelPlus : A cross-browser solution to read an Excel file" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/prettify.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/sunburst.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/prettify.js"></script>
+    <script type="text/javascript" src="javascripts/html5shiv.js"></script>
+    <script type="text/javascript" src="dist/xlsx.js"></script>
+    <script type="text/javascript" src="dist/jszip.min.js"></script>
+    <script type="text/javascript" src="dist/excelplus-2.0.js"></script>
     <title>ExcelPlus</title>
   </head>
 
@@ -31,23 +38,23 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>
-<a name="cross-browser-reader-for-excel-files" class="anchor" href="#cross-browser-reader-for-excel-files"><span class="octicon octicon-link"></span></a>Cross-browser reader for Excel files</h3>
+        <h2>
+<a name="cross-browser-reader-for-excel-files" class="anchor" href="#cross-browser-reader-for-excel-files"><span class="octicon octicon-link"></span></a>Cross-browser reader for Excel files</h2>
 
 <p>This solution can use ActiveX for old IE browsers, or <a href="http://blog.innovatejs.com/?tag=xlsx-js">XSLX.js</a> (attention make sure you have a version <a href="https://github.com/stephen-hardy/xlsx.js/pull/25">that supports IE8</a>).</p>
 
-<p>It will relay on the FileAPI for modern browser or on Flash for older browsers (using <a href="http://aymkdn.github.io/FileToDataURI/">FileToDataURI project</a>).</p>
+<p>It will relay on the FileAPI for modern browsers or on Flash for older browsers (using <a href="http://aymkdn.github.io/FileToDataURI/">FileToDataURI project</a>).</p>
 
 <p>The idea is to combine everything to be easy to use, and with a documentation.</p>
 
-<h2>
-<a name="quick-start" class="anchor" href="#quick-start"><span class="octicon octicon-link"></span></a>Quick Start</h2>
+<h3>
+<a name="quick-start" class="anchor" href="#quick-start"><span class="octicon octicon-link"></span></a>Quick Start</h3>
 
 <p>You'll need to include the below files:</p>
 <pre class="prettyprint lang-html">
-&lt;script type="text/javascript" src="js/xlsx.js">&lt;/script>
-&lt;script type="text/javascript" src="js/jszip/jszip-all.min.js">&lt;/script>
-&lt;script type="text/javascript" src="js/excelplus-2.0.js">&lt;/script>
+&lt;script type="text/javascript" src="dist/xlsx.js">&lt;/script> &lt;!-- https://github.com/stephen-hardy/xlsx.js -- v2.0.0 with IE8 fix -->
+&lt;script type="text/javascript" src="dist/jszip.min.js">&lt;/script> &lt;!-- https://github.com/Stuk/jszip -- v2.2.0 -->
+&lt;script type="text/javascript" src="dist/excelplus-2.0.js">&lt;/script>
 </pre>
 
 <p>Now we'll define a "load file" button in the HTML code:</p>
@@ -56,16 +63,34 @@
 
 <p>And finally the JavaScript code:</p>
 <pre class="prettyprint lang-js">
+/**
+* This is the master function for playing with a JS file
+*
+* @param {Object} params
+*   @param {Boolean} [params.useActiveX=true] We can force the file to use ActiveX when it's available
+*
+* @example
+* // note: the .error contains some error messages
+*/
+
 var oExcel = new ExcelPlus();
-// create a button to open a remote file
+
+/**
+  * This function permits to read a "remote" file in creating a upload button that will work with different browser versions
+  *
+  * @param {Object} params
+  *   @param {String} [params.flashPath="./"] You must provide the path to the Flash files (swfobject.js, FileToDataURI.swf and expressInstall.swf) 
+  *   @param [String} params.idButton The ID of the HTML button that we'll use to get the file
+  *   @param {Function} [params.readCallback=function(name,base64){}] The function that will be called when the file is read with two parameters (one: the file name, two: the base64 string of the file)
+  *   @param {Boolean} [visible=false] If we use ActiveX then it's possible to make the Excel file we currently read visible on the screen
+  */
 oExcel.openRemote({
   idButton:'file-excel',
-  flashPath:'/some/where/swfobject/',
+  flashPath:'/some/where/dist/swfobject/',
   readCallback:function(name,base64) {
     console.log(this.getSheetNames()); // list of the worksheets
     // if there are several sheets you need to define which one to read:
     if (this.nbSheets > 1) this.activeSheet(1); // the first sheet is the one to read
-    // you can show the sheet names with : `this.getSheetNames()`
     console.log("Value in the cell A2 - "+this.read("A2"));
     console.log("Values in the cells A1:B3 - "+this.read("A1:B3"));
     // we can also get the full sheet content into a 2D-array with `this.readAll()`
@@ -73,6 +98,32 @@ oExcel.openRemote({
 })
 </pre>
 
+<h3>
+<a name="live-example" class="anchor" href="#live-example"><span class="octicon octicon-link"></span></a>Live Example</h3>
+
+<p>Load an Excel file and see some info:</p>
+<object id="file-excel" />
+<ul id="result"></ul>
+<script type="javascript">
+var oExcel = new ExcelPlus();
+oExcel.openRemote({
+  idButton:'file-excel',
+  flashPath:'/ExcelPlus/dist/swfobject/',
+  readCallback:function(name,base64) {
+    var $list = $('#result');
+    $list.append('<li>Number of sheets: '+this.nbSheets+'</li>');
+    $list.append('<li>Name of the first sheet: '+this.getSheetNames()[0])
+    // if there are several sheets you need to define which one to read:
+    if (this.nbSheets > 1) this.activeSheet(1); // the first sheet is the one to read
+    $list.append("Value in the cell A1: "+this.read("A1"));
+    var range=this.read("A2:B3");
+    $list.append("Values in the cells A2:A3 - "+range[0][0]+" "+range[0][1]);
+  }
+})
+</script>
+
+<h3>
+<a name="quick-documentation" class="anchor" href="#quick-documentation"><span class="octicon octicon-link"></span></a>Quick Documentation</h3>
 
       </section>
     </div>
