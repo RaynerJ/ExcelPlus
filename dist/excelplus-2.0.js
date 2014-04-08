@@ -77,13 +77,13 @@ function ExcelPlus(params) {
   this.filename = ""; // name of the file we read
 
   params = params || {};
-
+  this.error = "";
+  
   // check if we can use ActiveX here
   this.canActiveX = (params.useActiveX !== false ? this._init() : false);
 
   this.useActiveX = (params.useActiveX == undefined ? true : params.useActiveX); // we can force the use of ActiveX
   if (!this.canActiveX) this.useActiveX = false; // except if it's not available
-  this.error = "";
 }
 
 var ExcelPlus_savedObjects = []; // this variable is used to close the opened Excel when we use ActiveX -- so no need to call .close()
