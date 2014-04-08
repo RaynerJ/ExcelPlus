@@ -630,7 +630,7 @@ var Flash = {
         // wait for the file to be loaded
         return this._waitForObjectToBeLoaded(id,callback);
       } else {
-        swfobject.embedSWF(__ExcelPlus_flashPath+"/FileToDataURI.swf", id, "100px", "40px", "10", __ExcelPlus_flashPath+"/expressInstall.swf", {}, {}, {});
+        swfobject.embedSWF(__ExcelPlus_flashPath+"/FileToDataURI.swf", id, "80px" /* width of the Flash zone */, "22px" /* height of the Flash zone */, "10", __ExcelPlus_flashPath+"/expressInstall.swf", {}, {}, {});
       }
     } else {
       // replace the <object> by an input file
@@ -658,6 +658,7 @@ var Flash = {
     * @param {String} base64 It's the base64 version of the file
     */
   getFileData: function(name, base64) {
+    alert("gretFileDate")
     __Flash_getFileData_callback(name,base64);
   },
   /** 
