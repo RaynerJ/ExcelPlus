@@ -1,239 +1,237 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-<meta charset='utf-8' />
-<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="description" content="ExcelPlus : A cross-browser solution to read an Excel file" />
 
-<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/prettify.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/sunburst.css" />
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="javascripts/prettify.js"></script>
-<script type="text/javascript" src="javascripts/html5shiv.js"></script>
-<script type="text/javascript" src="dist/xlsx.js"></script>
-<script type="text/javascript" src="dist/jszip.min.js"></script>
-<script type="text/javascript" src="dist/excelplus-2.0.js"></script>
-<title>ExcelPlus</title>
-<style>
-li > ul > li {
-  list-style: circle outside none;
-  margin-left: 5px;
-}
-b {
-  font-weight: bold;
-}
-small {
-  font-size:0.8em
-}
-h4:before {
-  content: "★ ";
-  margin-left:-25px
-}
-</style>
-</head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExcelPlus :: JavaScript API/Interface to deal with Excel</title>
+  <link rel="shortcut icon" href="/ExcelPlus/img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/ExcelPlus/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" href="symbols/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="symbols/css/bootstrap-responsive.min.css" />
+  <link rel="stylesheet" type="text/css" href="symbols/css/prettify.css" />
+  <link rel="stylesheet" type="text/css" href="symbols/css/sunburst.css" />
+  <link rel="stylesheet" type="text/css" href="symbols/css/default.css" />
+  <script type="text/javascript" src="symbols/js/prettify.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="symbols/js/bootstrap-collapse.js"></script>
+  <script type="text/javascript" src="symbols/js/bootstrap-scrollspy.js"></script>
+  <script type="text/javascript" src="symbols/js/bootstrap-dropdown.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30296916-1']);
+  _gaq.push(['_trackPageview']);
 
-  <body onload="prettyPrint()">
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/Aymkdn/ExcelPlus">View on GitHub</a>
-
-          <h1 id="project_title">ExcelPlus</h1>
-          <h2 id="project_tagline">A cross-browser solution to read an Excel file</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/Aymkdn/ExcelPlus/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/Aymkdn/ExcelPlus/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h2>
-<a name="cross-browser-reader-for-excel-files" class="anchor" href="#cross-browser-reader-for-excel-files"><span class="octicon octicon-link"></span></a>Cross-browser reader for Excel files</h2>
-
-<p>This solution can use ActiveX for old IE browsers, or <a href="http://blog.innovatejs.com/?tag=xlsx-js">XSLX.js</a> (attention make sure you have a version <a href="https://github.com/stephen-hardy/xlsx.js/pull/25">that supports IE8</a>).</p>
-
-<p>It will relay on the FileAPI for modern browsers or on Flash for older browsers (using <a href="http://aymkdn.github.io/FileToDataURI/">FileToDataURI project</a>).</p>
-
-<p>The idea is to combine everything to be easy to use.</p>
-
-<h3>
-<a name="quick-start" class="anchor" href="#quick-start"><span class="octicon octicon-link"></span></a>Quick Start</h3>
-
-<p>You'll need to include the below files:</p>
-<pre class="prettyprint lang-html">
-&lt;script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">&lt;/script>
-&lt;script type="text/javascript" src="dist/xlsx.js">&lt;/script> &lt;!-- https://github.com/stephen-hardy/xlsx.js -- v2.0.0 with IE8 fix -->
-&lt;script type="text/javascript" src="dist/jszip.min.js">&lt;/script> &lt;!-- https://github.com/Stuk/jszip -- v2.2.0 -->
-&lt;script type="text/javascript" src="dist/excelplus-2.0.js">&lt;/script>
-</pre>
-
-<p>Now we'll define a "load file" button in the HTML code:</p>
-<pre class="prettyprint lang-html">
-&lt;object id="file-excel"&gt;&lt;/object&gt;
-</pre>
-
-<p>And finally the JavaScript code:</p>
-<pre class="prettyprint lang-js">
-var oExcel = new ExcelPlus();
-oExcel.openRemote({
-  idButton:'file-excel',
-  flashPath:'dist/swfobject/',
-  readCallback:function(name,base64) {
-    /* do something here -- see example and doc below */
-  }
-})
-</pre>
-
-<p>Make sure you ask for the last version of IE with the below metatag in the HEAD:</p>
-<pre class="prettyprint lang-html">
-  &lt;meta http-equiv="X-UA-Compatible" content="IE=Edge" /&gt;
-</pre>
-
-
-<h3>
-<a name="live-example" class="anchor" href="#live-example"><span class="octicon octicon-link"></span></a>Browser Compatibility</h3>
-
-<p>Tested with IE8, and all the modern browsers.</p>
-
-<h3>
-<a name="live-example" class="anchor" href="#live-example"><span class="octicon octicon-link"></span></a>Live Example</h3>
-
-<p>Load an Excel file and see some info:</p>
-<object id="file-excel"></object>
-<ul id="result"></ul>
-<script type="text/javascript">
-var oExcel = new ExcelPlus();
-oExcel.openRemote({
-  idButton:'file-excel',
-  flashPath:'dist/swfobject/',
-  readCallback:function(name,base64) {
-    var $list = $('#result');
-    $list.append('<li>Number of sheets: '+this.nbSheets+'</li>');
-    $list.append('<li>Name of the first sheet: '+this.getSheetNames()[0]+"</li>")
-    // if there are several sheets you need to define which one to read:
-    if (this.nbSheets > 1) this.selectSheet(1); // the first sheet is the one to read
-    $list.append("<li>Value in the cell A1: "+this.read("A1")+"</li>");
-    var range=this.read("A2:A3");
-    $list.append("<li>Values in the cells A2:A3:<ul><li>A2: "+range[0][0]+"</li><li>A3: "+range[1][0]+"</li></ul></li>");
-  }
-})
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 </script>
+</head>
+<body onload="prettyPrint()">
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href=".">ExcelPlus</a>
+        <div class="nav-collapse">
+          <ul class="nav">
+          
+            
+          
+            
+            <li class="dropdown">
+              <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">ExcelPlus() (14)<b class="caret"></b></a>
+              
+              <ul class="dropdown-menu">
+              
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.createFile">createFile</a></li>
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.createSheet">createSheet</a></li>
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.deleteSheet">deleteSheet</a></li>
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.getSheetNames">getSheetNames</a></li>
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.openLocal">openLocal</a></li>
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.openRemote">openRemote</a></li>
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.read">read</a></li>
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.readAll">readAll</a></li>
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.reset">reset</a></li>
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.saveAs">saveAs</a></li>
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.saveTo">saveTo</a></li>
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.selectSheet">selectSheet</a></li>
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.write">write</a></li>
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.writeCell">writeCell</a></li>
+              
+              </ul>
+              
+            </li>
+            
+          
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span2 hidden-tablet hidden-phone"> <!-- left side bar -->
+        <div style="margin-bottom: 15px; padding-left: 14px; margin-top: 10px;"><img id="logo" src="img/ExcelPlus.svg" style="width: 100px"></div>
+        <ul class="nav nav-list">
+          <li class="nav-header">Download</li>
+          <li><a href="https://github.com/Aymkdn/ExcelPlus">GitHub Repository</a></li>
+          <li><a href="https://github.com/Aymkdn/ExcelPlus/blob/master/changelog.md">Changelog</a></li>
+          <li class="nav-header">API</li>
+          
+          
+          
+          
+          <li><a href="symbols/ExcelPlus%28%29.html">ExcelPlus()</a></li>
+          
+          
+        </ul>
+      </div>
 
-<p>Code for the previous example:</p>
+      <div class="span10"> <!-- content -->
+        <h1>ExcelPlus 2.2</h1>
+        <a href="https://twitter.com/aymkdn" class="twitter-follow-button" data-show-count="false" data-lang="fr" data-dnt="true">Follow @aymkdn</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <h2>Description</h2>
+        <p>ExcelPlus (EP) is a <strong>JavaScript API/interface to deal with Excel</strong> using the <a href="https://github.com/SheetJS/js-xlsx" target="_blank">js-xlsx library from SheetJS</a>. The SheetJS library is powerful but difficult to use, so I've created ExcelPlus to interface with it.</p>
+        <p>I've developed this interface for my needs during my job at <a href="http://www.dell.com">Dell</a> and we thought it could be useful for the community too, so here it is !</p>
+        <div class="alert alert-error">This library has only been tested with IE8 and last version of Firefox, but it should work fro IE8 and with all modern browsers.</div>
+        <div class="alert alert-info">More work needs to be done, but for now it's providing the basics.</div>
+        <h2>Quick Start</h2>
+        <h3>Requirements</h3>
+        <p>Because ExcelPlus is an interface for <a href="https://github.com/SheetJS/js-xlsx" target="_blank">js-xlsx</a> then you'll need it. ExcelPlus is already provided with js-xlsx as well as some other libraries already packaged into the file called <strong>sheetjs.all.min.js</strong>.</p>
+        <p>Just add two lines to call the necessary files:</p>
+<pre class="prettyprint lang-js">&lt;script type="text/javascript" src="sheetjs.all.min.js">&lt;/script>
+&lt;script type="text/javascript" src="ExcelPlus-2.2.min.js">&lt;/script></pre>
+        <h3>Usage</h3>
+        <h4>Write</h4>
+        <p>Below are two examples about how to write/create an Excel file:</p>
 <pre class="prettyprint lang-js">
-var oExcel = new ExcelPlus();
-oExcel.openRemote({
-  idButton:'file-excel',
-  flashPath:'dist/swfobject/',
-  readCallback:function(name,base64) {
-    var $list = $('#result');
-    $list.append('&lt;li>Number of sheets: '+this.nbSheets+'&lt;/li>');
-    $list.append('&lt;li>Name of the first sheet: '+this.getSheetNames()[0]+"&lt;/li>")
-    // if there are several sheets you need to define which one to read:
-    if (this.nbSheets > 1) this.selectSheet(1); // the first sheet is the one to read
-    $list.append("&lt;li>Value in the cell A1: "+this.read("A1")+"&lt;/li>");
-    var range=this.read("A2:A3");
-    $list.append("&lt;li>Values in the cells A2:A3:&lt;ul>&lt;li>A2: "+range[0][0]+"&lt;/li>&lt;li>A3: "+range[1][0]+"&lt;/li>&lt;/ul>&lt;/li>");
-  }
+// in this example we want to build an Excel file with one sheet and write some stuff
+var ep=new ExcelPlus();
+// We're going to do several tasks in one line of code:
+// 1) create an Excel with one sheet called "Book1"
+// 2) write some data from an array to the new-created sheet
+// 3) create a new sheet called "Book2"
+// 4) write "A1" in cell "A1" of the new-created sheet
+// 5) write the today date in D1 of the "Book1" sheet
+// 6) save it on the user computer (this last step only works with IE10+ and modern browsers)
+ep.createFile("Book1")
+  .write({ "content":[ ["A1","B1","C1"] ] })
+  .createSheet("Book2")
+  .write({ "cell":"A1", "content":"A1" })
+  .write({ "sheet":"Book1", "cell":"D1", "content":new Date() })
+  .saveAs("demo.xlsx");
+</pre>
+
+<pre class="prettyprint lang-js">
+// in this other example we want to build an Excel file with several sheets and write some stuff
+var ep=new ExcelPlus();
+// We're going to do several tasks in one line of code:
+// 1) create an Excel with three sheets called "Book1", "Book2" and "Book3"
+// 2) write some data from an array to the "Book1"
+// 3) write "A1" in cell "A1" of "Book2"
+// 3) delete "Book3"
+// 4) select "Book2"
+// 5) write the today date in A2 of the "Book2" sheet
+ep.createFile([ "Book1", "Book2", "Book3" ])
+  .write({ "sheet":"Book1", "content":[ ["A1","B1","C1"] ] })
+  .write({ "sheet":"Book2", "cell":"A1", "content":"A1" })
+  .deleteSheet("Book3")
+  .selectSheet("Book2")
+  .write({ "cell":"A2", "content":new Date() });
+</pre>
+        <h4>Read</h4>
+        <p>Below are some examples about how to read an Excel file:</p>
+<pre class="prettyprint lang-js">
+// in this example we want to read a local (= on the user's computer) Excel file
+// to do so we need to add `&lt;object id="file-object">&lt;/object>` into our HTML where a button to upload the file will appear
+// then we can call our JavaScript
+var ep=new ExcelPlus();
+// we call openLocal() and when the file is loaded then we want to display its content
+// openLocal() will use the FileAPI if exists, otherwise it will use a Flash object
+ep.openLocal({
+  "flashPath":"/js/excelplus/2.2/swfobject/",
+  "labelButton":"Open an Excel file"
+},function() {
+  // show the content of the first sheet
+  console.table(ep.selectSheet(1).readAll())
 })
 </pre>
-<h3>
-<a name="quick-documentation" class="anchor" href="#quick-documentation"><span class="octicon octicon-link"></span></a>Quick Documentation</h3>
 
-<h4>new ExcelPlus(params) -&gt; <em>oExcel</em></h4>
-<blockquote class="description">This is the master function for playing with a JS file.</blockquote>
-<ul>
-  <li>{params}
-    <ul>
-      <li><b>useActiveX</b> <small>(<span class="type">Boolean</span> | Optional)</small><blockquote>By default we'll try to use ActiveX if it's available</blockquote></li>
-    </ul>
-  </li>
-</ul>
+<pre class="prettyprint lang-js">
+// in this other example we want to read a remote (= on a server) Excel file
+// to do so we need to make sure the server accepts the remote requests (it's the case for the same domain)
+var ep=new ExcelPlus();
+// we call openRemote()
+ep.openRemote("http://my.server.com/path/file.xlsx", function(passed) {
+  if (!passed) alert("Error: impossible to load the remote file");
+  else console.table(ep.selectSheet(1).readAll()) // show the content of the first sheet
+})
+</pre>
 
-<h4><em>oExcel</em>.openRemote(params)</h4>
-<blockquote class="description">This function permits to read a file in creating a upload button that will work with different browser versions.</blockquote>
-<ul>
-  <li>{params}
-    <ul>
-      <li><b>flashPath</b> <small>(<span class="type">String</span> | Default: "./")</small> <blockquote>You must provide the path to the Flash files (swfobject.js, FileToDataURI.swf and expressInstall.swf)</blockquote></li>
-      <li><b>idButton</b> <small>(<span class="type">String</span>)</small> <blockquote>The ID of the HTML button that we'll use to get the file</blockquote></li>
-      <li><b>readCallback</b> <small>(<span class="type">Function</span> | Optional | Default: function(name,base64){})</small> <blockquote>The function that will be called when the file is read with two parameters (one: the file name, two: the base64 string of the file)</blockquote></li>
-      <li><b>visible</b> <small>(<span class="type">Boolean</span> | Optional | Default: false)</small> <blockquote>If we use ActiveX then it's possible to make the Excel file we currently read visible on the screen</blockquote></li>
-    </ul>
-  </li>
-</ul>
+<pre class="prettyprint lang-js">
+// a combo because we create an Excel file and we read it
+var ep=new ExcelPlus();
+ep.createFile().write({cell:"A1", content:"A1"}).writeCell("B1","B1").write({cell:"A2",content:"A2"});
+console.table(ep.read("A1:B3"));
+</pre>
 
-<h4><em>oExcel</em>.getSheetNames()</h4>
-<blockquote class="description">Return an array of the sheet names (the key is the sheet #).<br><br>
-For example:<br>&nbsp;&nbsp;&nbsp;&nbsp;oExcel.getSheetNames(); // → [ 1 =&gt; "Sheet1", 2 =&gt; "Sheet2" ]</blockquote>
-
-<h4><em>oExcel</em>.selectSheet(sheet)</h4>
-<blockquote class="description">Select a sheet.<br><br>
-For example:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;oExcel.selectSheet(1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;oExcel.selectSheet("Sheet1");
-</blockquote>
-<ul>
-  <li><b>sheet</b> <small>(<span class="type">String or Number</span>)</small> <blockquote>If it's a number, it must be greater than 0, and if it's a string it must be the name of a sheet.</blockquote></li>
-</ul>
-
-<h4><em>oExcel</em>.readAll()</h4>
-<blockquote class="description">Read the all usedRange. We assume that the content starts at A1.<br>
-Returns a 2D array; the first one is the rows, and the second one is the columns.</blockquote>
-
-<h4><em>oExcel</em>.read(range)</h4>
-<blockquote class="description">→ if it's a range then it returns a 2D array; the first one is the rows, and the second one is the columns<br>
-→ if it's a cell then it returns the value of the cell.
-<br><br>
-For example:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;oExcel.read("A1"); // → returns a string<br>
-&nbsp;&nbsp;&nbsp;&nbsp;oExcel.read("A1:B3"); // → returns an array
-</blockquote>
-<ul>
-  <li><b>range</b> <small>(<span class="type">String</span>)</small> <blockquote>Unique cell (e.g. "C4") or a range of cells (e.g. "D2:E6")</blockquote></li>
-</ul>
-
-<h4><em>oExcel</em>.nbSheets</h4>
-<blockquote class="description">Contains the number of sheets.</blockquote>
-
-<h4><em>oExcel</em>.fileName</h4>
-<blockquote class="description">Contains the fileName.</blockquote>
-
-<h4><em>oExcel</em>.nbRows</h4>
-<blockquote class="description">Contains the number of rows (only after having selected the sheet).</blockquote>
-
-<h4><em>oExcel</em>.nbColumns</h4>
-<blockquote class="description">Contains the number of columns (only after having selected the sheet).</blockquote>
-
-       </section>
+<h4>Bonus</h4>
+<p>If you use <strong>Sharepoint</strong> you can use ExcelPlus with my other library called <a href="http://aymkdn.github.io/SharepointPlus/">SharepointPlus</a>. With these both libraries you can save your Excel file to Sharepoint:</p>
+<pre class="prettyprint lang-js">
+// Create an Excel file and save it to Sharepoint
+var ep=new ExcelPlus();
+ep.createFile("Book1").write({ "content":[ ["A1","B1","C1"] ] });
+$SP().createFile({
+  "content": ep.saveTo(),
+  "encoded": true,
+  "destination": "http://my.sharepoint.com/path/Documents%20Library/myfile.xlsx",
+  "url": "http://my.sharepoint.com/path/",
+  after:function() {
+    // and you can send it to the user calling the below line :
+    window.location.href="http://my.sharepoint.com/path/Documents%20Library/myfile.xlsx";
+  }
+});
+</pre>
+      </div>
     </div>
+    <footer class="footer">
+    <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Documentation built by <a target="_blank" href="http://twitter.com/aymkdn">@aymkdn</a> (<a href="http://kodono.info">http://kodono.info</a>) with <a href="http://code.google.com/p/jsdoc-toolkit/">JSDoc Toolkit</a>.</p>
+<p>This work is licensed under <a rel="license" href="http://aymkdn.github.com/SharepointPlus/license.txt">GPL v2</a>.</p>
+<p>Designed with <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter</a>.</p>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">ExcelPlus maintained by <a href="https://github.com/Aymkdn">Aymkdn</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-30296916-4");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
-
-
-  </body>
+    <p>Automatically generated with JSDoc on Tue, 23 Dec 2014 09:54:01 GMT</p>
+    </footer>
+  </div>
+  <script type="text/javascript">
+  $('.dropdown-toggle').dropdown()
+  // test SVG
+  function supportsSVG() { return !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', "svg").createSVGRect }
+  if (supportsSVG() === false) $('#logo').attr("src","img/ExcelPlus.png")
+  </script>
+</body>
 </html>
