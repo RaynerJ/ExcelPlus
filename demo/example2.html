@@ -20,8 +20,12 @@ ep.createFile([ "Sheet1", "Sheet2", "Sheet3" ])
   .write({ "sheet":"Sheet2", "cell":"A1", "content":"A1" })
   .deleteSheet("Sheet3")
   .selectSheet("Sheet2")
-  .write({ "cell":"A2", "content":new Date() })
-  .saveAs("demo.xlsx");
+  .write({ "cell":"A2", "content":new Date() });
+try {
+  ep.saveAs("demo.xlsx");
+} catch(e) {
+  alert("Sorry but your browser doesn't support saveAs() ... you may want to use saveTo() to transfer the data to a server that will send you back the file")
+}
 </script>
 </body>
 </html>

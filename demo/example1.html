@@ -22,9 +22,8 @@ ep.createFile("Sheet1")
   .write({ "sheet":"Sheet1", "cell":"D1", "content":new Date() });
 try {
   ep.saveAs("demo.xlsx");
-}
-catch() {
-  alert("Sorry but your browser doesn't support saveAs() ... you may want to use saveTo() to transfer the data to a server that will send you back the file"
+} catch(e) {
+  alert("Sorry but your browser doesn't support saveAs() ... you may want to use saveTo() to transfer the data to a server that will send you back the file")
 }
 </script>
 </body>
