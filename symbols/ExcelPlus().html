@@ -172,7 +172,7 @@
           
           <div class="parameters">
             <h3>Parameters:</h3>
-            <div class="parameter row-fluid">  <div class="type span2">String|Array</div>  <div class="name span3"><b data-param="sheetnames">sheetnames</b> <i>Optional, Default: "Book1"</i></div>  <div class="param_description span7">You can provide the names of the sheets in an array</div></div>
+            <div class="parameter row-fluid">  <div class="type span2">String|Array</div>  <div class="name span3"><b data-param="sheetnames">sheetnames</b> <i>Optional, Default: "Sheet1"</i></div>  <div class="param_description span7">You can provide the names of the sheets in an array</div></div>
           </div>
           
           
@@ -183,7 +183,7 @@
           
           <h3>Example:</h3>
           
-          <pre class="prettyprint lang-js">   var myExcel = new ExcelPlus();   myExcel.createFile(["Book 1", "Book 2"]);</pre>
+          <pre class="prettyprint lang-js">   var myExcel = new ExcelPlus();   myExcel.createFile(["Sheet 1", "Sheet 2"]);</pre>
           
           
 
@@ -354,7 +354,7 @@ The HTML code for the input[file] will be &lt;object id="file-object">&lt;/objec
         <div class="member">
           <h2><a href="#.read" name=".read" title="Direct link to the method 'read'">read</a></h2>
           <div>
-            <div class="method well">read(range)</div>
+            <div class="method well">read(range, options)</div>
           </div>
           <blockquote class="description">This function permits to read a cell or a range</blockquote>
           
@@ -364,7 +364,7 @@ The HTML code for the input[file] will be &lt;object id="file-object">&lt;/objec
           
           <div class="parameters">
             <h3>Parameters:</h3>
-            <div class="parameter row-fluid">  <div class="type span2">String</div>  <div class="name span3"><b data-param="range">range</b> </div>  <div class="param_description span7">can be a range (e.g. "A1:D1"), or a single cell (e.g. "A1")</div></div>
+            <div class="parameter row-fluid">  <div class="type span2">String</div>  <div class="name span3"><b data-param="range">range</b> </div>  <div class="param_description span7">can be a range (e.g. "A1:D1"), or a single cell (e.g. "A1")</div></div><div class="parameter row-fluid">  <div class="type span2">Object</div>  <div class="name span3"><b data-param="options">options</b> </div>  <div class="param_description span7"></div></div><div class="parameter row-fluid">  <div class="type span2">Boolean</div>  <div class="name span3"><b data-param="options.parseDate">options.parseDate</b> <i>Optional, Default: false</i></div>  <div class="param_description span7">If a Date is found then it will try to parse the date to return a JS Date object</div></div>
           </div>
           
           
@@ -565,18 +565,13 @@ It actually uses the `XLSX.write()` function</blockquote>
           
           <div class="parameters">
             <h3>Parameters:</h3>
-            <div class="parameter row-fluid">  <div class="type span2">Object</div>  <div class="name span3"><b data-param="options">options</b> </div>  <div class="param_description span7"></div></div><div class="parameter row-fluid">  <div class="type span2">String</div>  <div class="name span3"><b data-param="sheet">sheet</b> <i>Optional</i></div>  <div class="param_description span7">You can give the name of the sheet where to write, or the current selected sheet will be use, or the first sheet will be used</div></div><div class="parameter row-fluid">  <div class="type span2">String</div>  <div class="name span3"><b data-param="cell">cell</b> <i>Optional</i></div>  <div class="param_description span7">You can specify the cell reference (e.g. "A1")</div></div><div class="parameter row-fluid">  <div class="type span2">String|Boolean|Number|Date|Array</div>  <div class="name span3"><b data-param="content">content</b> </div>  <div class="param_description span7">If it's an arrya then we ignore the "cell" param (e.g. [ [ "Content Cell A1", "Content Cell B1" ] [ "Content Cell A2", "Content Cell B2" ] ], otherwise the "cell" needs to be provided</div></div>
+            <div class="parameter row-fluid">  <div class="type span2">Object</div>  <div class="name span3"><b data-param="options">options</b> </div>  <div class="param_description span7"></div></div><div class="parameter row-fluid">  <div class="type span2">String</div>  <div class="name span3"><b data-param="sheet">sheet</b> <i>Optional</i></div>  <div class="param_description span7">You can give the name of the sheet where to write, or the current selected sheet will be use, or the first sheet will be used</div></div><div class="parameter row-fluid">  <div class="type span2">String</div>  <div class="name span3"><b data-param="cell">cell</b> <i>Optional</i></div>  <div class="param_description span7">You can specify the cell reference (e.g. "A1")</div></div><div class="parameter row-fluid">  <div class="type span2">String|Boolean|Number|Date|Array</div>  <div class="name span3"><b data-param="content">content</b> </div>  <div class="param_description span7">If it's an arrya then we ignore the "cell" param (e.g. [ [ "Content Cell A1", "Content Cell B1" ] [ "Content Cell A2", "Content Cell B2" ] ], otherwise the "cell" needs to be provided// TODO the value can also be a formula, e.g. "=SUM(A1:B1)"</div></div>
           </div>
           
           
           
           
           
-          
-          
-          <h3>Example:</h3>
-          
-          <pre class="prettyprint lang-js">  var my=new ExcelPlus();  my.createFile(["Book1","Book2"]);  my.write({ "sheet":"Book1", "content":[ ["A1","B1","C1"] ] });  my.write({ "sheet":"Book2", "cell":"A1", "content":"This is the cell A1" });// TODO the value can also be a formula, e.g. "=SUM(A1:B1)"</pre>
           
           
 
@@ -609,11 +604,6 @@ It actually uses the `XLSX.write()` function</blockquote>
           
           
           
-          <h3>Example:</h3>
-          
-          <pre class="prettyprint lang-js">  var my=new ExcelPlus();  my.createFile(["Book1","Book2"]);  my.selectSheet("Book1");  my.writeCell("A1","This is the content of the first cell");// TODO the value can also be a formula, e.g. "=SUM(A1:B1)"</pre>
-          
-          
 
           
           
@@ -632,7 +622,7 @@ It actually uses the `XLSX.write()` function</blockquote>
 <p>This work is licensed under <a rel="license" href="http://aymkdn.github.com/SharepointPlus/license.txt">GPL v2</a>.</p>
 <p>Designed with <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter</a>.</p>
 
-    <p>Automatically generated with JSDoc on Tue, 23 Dec 2014 09:54:01 GMT</p>
+    <p>Automatically generated with JSDoc on Wed, 24 Dec 2014 13:39:30 GMT</p>
     </footer>
   </div>
   <script type="text/javascript">
