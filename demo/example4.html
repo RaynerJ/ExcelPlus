@@ -8,7 +8,7 @@
 <body>
 <p><b>For old browsers (IE8 and others), make sure to be in standard mode with <code>&lt;meta http-equiv="X-UA-Compatible" content="IE=EDGE"></code> and with a DOCTYPE.</b></p>
 <p>Reading the file <a href="demo.xlsx">demo.xlsx</a>:</p>
-<table id="result"></table>
+<div id="result"></div>
 <script>
 // in this other example we want to read a remote (= on a server) Excel file
 // to do so we need to make sure the server accepts the remote requests (it's the case for the same domain)
@@ -19,7 +19,7 @@ ep.openRemote("demo.xlsx", function(passed) {
   else {
     // show the content of the first sheet
     var a = ep.selectSheet(1).readAll();
-    var html = "";
+    var html = "<table>";
     for (var i=0; i < a.length; i++) {
       html += '<tr>';
       for (var j=0; j < a[i].length; j++) {
@@ -27,7 +27,8 @@ ep.openRemote("demo.xlsx", function(passed) {
       }
       html += '</tr>';
     }
-    document.querySelector("#result").innerHTML = html;
+    html += '</table>'
+    document.querySelector("#result").insertAdjacentHTML('beforeend', html);
   }
 })
 </script>
