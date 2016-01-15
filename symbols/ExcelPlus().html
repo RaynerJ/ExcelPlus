@@ -39,7 +39,7 @@
           
             
             <li class="dropdown">
-              <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">ExcelPlus() (14)<b class="caret"></b></a>
+              <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">ExcelPlus() (13)<b class="caret"></b></a>
               
               <ul class="dropdown-menu">
               
@@ -67,8 +67,6 @@
                 <li><a href="../symbols/ExcelPlus%28%29.html#.saveTo">saveTo</a></li>
               
                 <li><a href="../symbols/ExcelPlus%28%29.html#.selectSheet">selectSheet</a></li>
-              
-                <li><a href="../symbols/ExcelPlus%28%29.html#.write">write</a></li>
               
                 <li><a href="../symbols/ExcelPlus%28%29.html#.writeCell">writeCell</a></li>
               
@@ -130,8 +128,6 @@
           <li><a href="../symbols/ExcelPlus%28%29.html#.saveTo">saveTo</a></li>
           
           <li><a href="../symbols/ExcelPlus%28%29.html#.selectSheet">selectSheet</a></li>
-          
-          <li><a href="../symbols/ExcelPlus%28%29.html#.write">write</a></li>
           
           <li><a href="../symbols/ExcelPlus%28%29.html#.writeCell">writeCell</a></li>
           
@@ -364,7 +360,7 @@ The HTML code for the input[file] will be &lt;object id="file-object">&lt;/objec
           
           <div class="parameters">
             <h3>Parameters:</h3>
-            <div class="parameter row-fluid">  <div class="type span2">String</div>  <div class="name span3"><b data-param="range">range</b> </div>  <div class="param_description span7">can be a range (e.g. "A1:D1"), or a single cell (e.g. "A1")</div></div><div class="parameter row-fluid">  <div class="type span2">Object</div>  <div class="name span3"><b data-param="options">options</b> </div>  <div class="param_description span7"></div></div><div class="parameter row-fluid">  <div class="type span2">Boolean</div>  <div class="name span3"><b data-param="options.parseDate">options.parseDate</b> <i>Optional, Default: false</i></div>  <div class="param_description span7">If a Date is found then it will try to parse the date to return a JS Date object</div></div>
+            <div class="parameter row-fluid">  <div class="type span2">String</div>  <div class="name span3"><b data-param="range">range</b> </div>  <div class="param_description span7">can be a range (e.g. "A1:D1"), or a single cell (e.g. "A1")</div></div><div class="parameter row-fluid">  <div class="type span2">Object</div>  <div class="name span3"><b data-param="options">options</b> </div>  <div class="param_description span7"></div></div><div class="parameter row-fluid">  <div class="type span2">Boolean</div>  <div class="name span3"><b data-param="options.parseDate">options.parseDate</b> <i>Optional, Default: false</i></div>  <div class="param_description span7">If a Date is found then it will try to parse the date to return a JS Date object</div></div><div class="parameter row-fluid">  <div class="type span2">Boolean</div>  <div class="name span3"><b data-param="options.properties">options.properties</b> <i>Optional, Default: false</i></div>  <div class="param_description span7">When it's true it will return an object with all properties has defined by sheetjs/XLSX-JS instead of return the cell value</div></div>
           </div>
           
           
@@ -373,8 +369,8 @@ The HTML code for the input[file] will be &lt;object id="file-object">&lt;/objec
             <h3>Returns:</h3>
             <div class="row-fluid">
               
-              <div class="span2">Array</div>
-              <div class="span10">if it's a range then it returns a 2D array (the first one is the rows, and the second one is the columns), if it's a cell then it returns the value of the cell</div>
+              <div class="span2">Date|String|Array|Object</div>
+              <div class="span10">if it's a range then it returns a 2D array (the first one is the rows, and the second one is the columns), if it's a cell then it returns the value of the cell, or the object if optoins.properties is true</div>
               
             </div>
           </div>
@@ -394,13 +390,18 @@ The HTML code for the input[file] will be &lt;object id="file-object">&lt;/objec
         <div class="member">
           <h2><a href="#.readAll" name=".readAll" title="Direct link to the method 'readAll'">readAll</a></h2>
           <div>
-            <div class="method well">readAll()</div>
+            <div class="method well">readAll(options)</div>
           </div>
           <blockquote class="description">This function will read the all of the used range (we assume that the content starts at A1)</blockquote>
           
           
           
           
+          
+          <div class="parameters">
+            <h3>Parameters:</h3>
+            <div class="parameter row-fluid">  <div class="type span2">Object</div>  <div class="name span3"><b data-param="options">options</b> </div>  <div class="param_description span7"></div></div><div class="parameter row-fluid">  <div class="type span2">Boolean</div>  <div class="name span3"><b data-param="options.parseDate">options.parseDate</b> <i>Optional, Default: false</i></div>  <div class="param_description span7">If a Date is found then it will try to parse the date to return a JS Date object</div></div><div class="parameter row-fluid">  <div class="type span2">Boolean</div>  <div class="name span3"><b data-param="options.properties">options.properties</b> <i>Optional, Default: false</i></div>  <div class="param_description span7">When it's true it will return an object with all properties has defined by sheetjs/XLSX-JS instead of return the cell value</div></div>
+          </div>
           
           
           
@@ -535,37 +536,7 @@ It actually uses the `XLSX.write()` function</blockquote>
           
           <div class="parameters">
             <h3>Parameters:</h3>
-            <div class="parameter row-fluid">  <div class="type span2">String|Number</div>  <div class="name span3"><b data-param="sheet">sheet</b> </div>  <div class="param_description span7">If it's a number (starting from) that reprents the sheet position in the Excel file, otherwise it must be the name of the sheet (case sensitive)</div></div>
-          </div>
-          
-          
-          
-          
-          
-          
-          
-
-          
-          
-          
-
-          <hr />
-        </div>
-        
-        <div class="member">
-          <h2><a href="#.write" name=".write" title="Direct link to the method 'write'">write</a></h2>
-          <div>
-            <div class="method well">write(options, sheet, cell, content)</div>
-          </div>
-          <blockquote class="description">Write values into the workbook</blockquote>
-          
-          
-          
-          
-          
-          <div class="parameters">
-            <h3>Parameters:</h3>
-            <div class="parameter row-fluid">  <div class="type span2">Object</div>  <div class="name span3"><b data-param="options">options</b> </div>  <div class="param_description span7"></div></div><div class="parameter row-fluid">  <div class="type span2">String</div>  <div class="name span3"><b data-param="sheet">sheet</b> <i>Optional</i></div>  <div class="param_description span7">You can give the name of the sheet where to write, or the current selected sheet will be use, or the first sheet will be used</div></div><div class="parameter row-fluid">  <div class="type span2">String</div>  <div class="name span3"><b data-param="cell">cell</b> <i>Optional</i></div>  <div class="param_description span7">You can specify the cell reference (e.g. "A1")</div></div><div class="parameter row-fluid">  <div class="type span2">String|Boolean|Number|Date|Array</div>  <div class="name span3"><b data-param="content">content</b> </div>  <div class="param_description span7">If it's an arrya then we ignore the "cell" param (e.g. [ [ "Content Cell A1", "Content Cell B1" ] [ "Content Cell A2", "Content Cell B2" ] ], otherwise the "cell" needs to be provided// TODO the value can also be a formula, e.g. "=SUM(A1:B1)"</div></div>
+            <div class="parameter row-fluid">  <div class="type span2">String|Number</div>  <div class="name span3"><b data-param="sheet">sheet</b> </div>  <div class="param_description span7">If it's a number (starting from 1) that reprents the sheet position in the Excel file, otherwise it must be the name of the sheet (case sensitive)</div></div>
           </div>
           
           
@@ -622,7 +593,7 @@ It actually uses the `XLSX.write()` function</blockquote>
 <p>This work is licensed under <a rel="license" href="http://aymkdn.github.com/SharepointPlus/license.txt">GPL v2</a>.</p>
 <p>Designed with <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter</a>.</p>
 
-    <p>Automatically generated with JSDoc on Thu, 25 Dec 2014 13:13:15 GMT</p>
+    <p>Automatically generated with JSDoc on Fri, 15 Jan 2016 16:12:06 GMT</p>
     </footer>
   </div>
   <script type="text/javascript">

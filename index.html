@@ -47,7 +47,7 @@
           
             
             <li class="dropdown">
-              <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">ExcelPlus() (14)<b class="caret"></b></a>
+              <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">ExcelPlus() (13)<b class="caret"></b></a>
               
               <ul class="dropdown-menu">
               
@@ -75,8 +75,6 @@
                 <li><a href="symbols/ExcelPlus%28%29.html#.saveTo">saveTo</a></li>
               
                 <li><a href="symbols/ExcelPlus%28%29.html#.selectSheet">selectSheet</a></li>
-              
-                <li><a href="symbols/ExcelPlus%28%29.html#.write">write</a></li>
               
                 <li><a href="symbols/ExcelPlus%28%29.html#.writeCell">writeCell</a></li>
               
@@ -111,64 +109,66 @@
       </div>
 
       <div class="span10"> <!-- content -->
-        <h1>ExcelPlus 2.2</h1>
+        <h1>ExcelPlus 2.3</h1>
         <a href="https://twitter.com/aymkdn" class="twitter-follow-button" data-show-count="false" data-lang="fr" data-dnt="true">Follow @aymkdn</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         <h2>Description</h2>
         <p>ExcelPlus (EP) is a <strong>JavaScript API/interface to deal with Excel</strong> using the <a href="https://github.com/SheetJS/js-xlsx" target="_blank">js-xlsx library from SheetJS</a>. The SheetJS library is powerful but difficult to use, so I've created ExcelPlus to interface with it.</p>
         <p>I've developed this interface for my needs during my job at <a href="http://www.dell.com">Dell</a> and we thought it could be useful for the community too, so here it is !</p>
-        <div class="alert alert-error">This library has only been tested with IE8 and last version of Firefox.. not everything is working in IE8 due to the same limitations of XLSX-JS.</div>
-        <div class="alert alert-info">More work needs to be done, but for now it's providing the basics.</div>
+        <div class="alert alert-info">Tested with IE8+, Firefox, Chrome.</div>
         <h2>Quick Start</h2>
         <h3>Requirements</h3>
-        <p>Because ExcelPlus is an interface for <a href="https://github.com/SheetJS/js-xlsx" target="_blank">js-xlsx</a> then you'll need it. ExcelPlus is already provided with js-xlsx as well as some other libraries already packaged into the file called <strong>sheetjs.all.min.js</strong>.</p>
+        <p>Because ExcelPlus is an interface for <a href="https://github.com/SheetJS/js-xlsx" target="_blank">js-xlsx</a> then you'll need it. ExcelPlus is already provided with js-xlsx (with some homemade fix) as well as some other libraries already packaged into the file called <strong>sheetjs.all.min.js</strong>.</p>
         <p>Just add two lines to call the necessary files:</p>
 <pre class="prettyprint lang-js">&lt;script type="text/javascript" src="sheetjs.all.min.js">&lt;/script>
-&lt;script type="text/javascript" src="excelplus-2.2.min.js">&lt;/script></pre>
+&lt;script type="text/javascript" src="ExcelPlus-2.3.min.js">&lt;/script></pre>
         <h3>Usage</h3>
         <h4>Write</h4>
         <p>Below are two examples about how to write/create an Excel file:</p>
-<pre class="prettyprint lang-js">
+<pre class="prettyprint lang-js" style="margin-bottom:3px">
+// --- EXAMPLE 1 ---
 // in this example we want to build an Excel file with one sheet and write some stuff
 var ep=new ExcelPlus();
 // We're going to do several tasks in one line of code:
-// 1) create an Excel with one sheet called "Sheet1"
+// 1) create an Excel with one sheet called "Book1"
 // 2) write some data from an array to the new-created sheet
-// 3) create a new sheet called "Sheet2"
+// 3) create a new sheet called "Book2"
 // 4) write "A1" in cell "A1" of the new-created sheet
-// 5) write the today date in D1 of the "Sheet1" sheet
+// 5) write the today date in D1 of the "Book1" sheet
 // 6) save it on the user computer (this last step only works with IE10+ and modern browsers)
-ep.createFile("Sheet1")
+ep.createFile("Book1")
   .write({ "content":[ ["A1","B1","C1"] ] })
-  .createSheet("Sheet2")
+  .createSheet("Book2")
   .write({ "cell":"A1", "content":"A1" })
-  .write({ "sheet":"Sheet1", "cell":"D1", "content":new Date() })
+  .write({ "sheet":"Book1", "cell":"D1", "content":new Date() })
   .saveAs("demo.xlsx");
 </pre>
-<a href="demo/example1.html">See in action this example 1</a>
+<p style="margin-left:25px"><a href="demo/example1.html">See in action this example 1</a></p>
 
-<pre class="prettyprint lang-js">
+<pre class="prettyprint lang-js" style="margin-bottom:3px">
+// --- EXAMPLE 2 ---
 // in this other example we want to build an Excel file with several sheets and write some stuff
 var ep=new ExcelPlus();
 // We're going to do several tasks in one line of code:
-// 1) create an Excel with three sheets called "Sheet1", "Sheet2" and "Sheet3"
-// 2) write some data from an array to the "Sheet1"
-// 3) write "A1" in cell "A1" of "Sheet2"
-// 3) delete "Sheet3"
-// 4) select "Sheet2"
-// 5) write the today date in A2 of the "Sheet2" sheet
-ep.createFile([ "Sheet1", "Sheet2", "Sheet3" ])
-  .write({ "sheet":"Sheet1", "content":[ ["A1","B1","C1"] ] })
-  .write({ "sheet":"Sheet2", "cell":"A1", "content":"A1" })
-  .deleteSheet("Sheet3")
-  .selectSheet("Sheet2")
+// 1) create an Excel with three sheets called "Book1", "Book2" and "Book3"
+// 2) write some data from an array to the "Book1"
+// 3) write "A1" in cell "A1" of "Book2"
+// 3) delete "Book3"
+// 4) select "Book2"
+// 5) write the today date in A2 of the "Book2" sheet
+ep.createFile([ "Book1", "Book2", "Book3" ])
+  .write({ "sheet":"Book1", "content":[ ["A1","B1","C1"] ] })
+  .write({ "sheet":"Book2", "cell":"A1", "content":"A1" })
+  .deleteSheet("Book3")
+  .selectSheet("Book2")
   .write({ "cell":"A2", "content":new Date() });
 </pre>
-<a href="demo/example2.html">See in action this example 2</a>
+<p style="margin-left:25px"><a href="demo/example2.html">See in action this example 2</a></p>
 
         <h4>Read</h4>
         <p>Below are some examples about how to read an Excel file:</p>
-<pre class="prettyprint lang-js">
+<pre class="prettyprint lang-js" style="margin-bottom:3px">
+// --- EXAMPLE 3 ---
 // in this example we want to read a local (= on the user's computer) Excel file
 // to do so we need to add `&lt;object id="file-object">&lt;/object>` into our HTML where a button to upload the file will appear
 // then we can call our JavaScript
@@ -176,26 +176,27 @@ var ep=new ExcelPlus();
 // we call openLocal() and when the file is loaded then we want to display its content
 // openLocal() will use the FileAPI if exists, otherwise it will use a Flash object
 ep.openLocal({
-  "flashPath":"/js/excelplus/2.2/swfobject/",
+  "flashPath":"/js/excelplus/2.3/swfobject/",
   "labelButton":"Open an Excel file"
 },function() {
   // show the content of the first sheet
   console.table(ep.selectSheet(1).readAll())
 })
 </pre>
-<a href="demo/example3.html">See in action this example 3</a>
+<p style="margin-left:25px"><a href="demo/example3.html">See in action this example 3</a></p>
 
-<pre class="prettyprint lang-js">
+<pre class="prettyprint lang-js" style="margin-bottom:3px">
+// --- EXAMPLE 4 ---
 // in this other example we want to read a remote (= on a server) Excel file
 // to do so we need to make sure the server accepts the remote requests (it's the case for the same domain)
 var ep=new ExcelPlus();
 // we call openRemote()
 ep.openRemote("http://my.server.com/path/file.xlsx", function(passed) {
   if (!passed) alert("Error: impossible to load the remote file");
-  else console.table(ep.selectSheet(1).readAll()) // show the content of the first sheet
+  else alert(ep.selectSheet(1).readAll()) // show the content of the first sheet
 })
 </pre>
-<a href="demo/example4.html">See in action this example 4</a>
+<p style="margin-left:25px"><a href="demo/example4.html">See in action this example 4</a></p>
 
 <pre class="prettyprint lang-js">
 // a combo because we create an Excel file and we read it
@@ -209,7 +210,7 @@ console.table(ep.read("A1:B3"));
 <pre class="prettyprint lang-js">
 // Create an Excel file and save it to Sharepoint
 var ep=new ExcelPlus();
-ep.createFile("Sheet1").write({ "content":[ ["A1","B1","C1"] ] });
+ep.createFile("Book1").write({ "content":[ ["A1","B1","C1"] ] });
 $SP().createFile({
   "content": ep.saveTo(),
   "encoded": true,
@@ -229,7 +230,7 @@ $SP().createFile({
 <p>This work is licensed under <a rel="license" href="http://aymkdn.github.com/SharepointPlus/license.txt">GPL v2</a>.</p>
 <p>Designed with <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter</a>.</p>
 
-    <p>Automatically generated with JSDoc on Thu, 25 Dec 2014 13:13:15 GMT</p>
+    <p>Automatically generated with JSDoc on Fri, 15 Jan 2016 16:12:06 GMT</p>
     </footer>
   </div>
   <script type="text/javascript">
