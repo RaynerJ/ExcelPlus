@@ -47,7 +47,7 @@
           
             
             <li class="dropdown">
-              <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">ExcelPlus() (13)<b class="caret"></b></a>
+              <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">ExcelPlus() (16)<b class="caret"></b></a>
               
               <ul class="dropdown-menu">
               
@@ -76,7 +76,13 @@
               
                 <li><a href="symbols/ExcelPlus%28%29.html#.selectSheet">selectSheet</a></li>
               
+                <li><a href="symbols/ExcelPlus%28%29.html#.write">write</a></li>
+              
                 <li><a href="symbols/ExcelPlus%28%29.html#.writeCell">writeCell</a></li>
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.writeNextRow">writeNextRow</a></li>
+              
+                <li><a href="symbols/ExcelPlus%28%29.html#.writeRow">writeRow</a></li>
               
               </ul>
               
@@ -109,7 +115,7 @@
       </div>
 
       <div class="span10"> <!-- content -->
-        <h1>ExcelPlus 2.3</h1>
+        <h1>ExcelPlus 2.4</h1>
         <a href="https://twitter.com/aymkdn" class="twitter-follow-button" data-show-count="false" data-lang="fr" data-dnt="true">Follow @aymkdn</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         <h2>Description</h2>
@@ -121,7 +127,7 @@
         <p>Because ExcelPlus is an interface for <a href="https://github.com/SheetJS/js-xlsx" target="_blank">js-xlsx</a> then you'll need it. ExcelPlus is already provided with js-xlsx (with some homemade fix) as well as some other libraries already packaged into the file called <strong>sheetjs.all.min.js</strong>.</p>
         <p>Just add two lines to call the necessary files:</p>
 <pre class="prettyprint lang-js">&lt;script type="text/javascript" src="sheetjs.all.min.js">&lt;/script>
-&lt;script type="text/javascript" src="ExcelPlus-2.3.min.js">&lt;/script></pre>
+&lt;script type="text/javascript" src="ExcelPlus-2.4.min.js">&lt;/script></pre>
         <h3>Usage</h3>
         <h4>Write</h4>
         <p>Below are two examples about how to write/create an Excel file:</p>
@@ -176,7 +182,7 @@ var ep=new ExcelPlus();
 // we call openLocal() and when the file is loaded then we want to display its content
 // openLocal() will use the FileAPI if exists, otherwise it will use a Flash object
 ep.openLocal({
-  "flashPath":"/js/excelplus/2.3/swfobject/",
+  "flashPath":"/js/excelplus/2.4/swfobject/",
   "labelButton":"Open an Excel file"
 },function() {
   // show the content of the first sheet
@@ -230,7 +236,7 @@ $SP().createFile({
 <p>This work is licensed under <a rel="license" href="http://aymkdn.github.com/SharepointPlus/license.txt">GPL v2</a>.</p>
 <p>Designed with <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter</a>.</p>
 
-    <p>Automatically generated with JSDoc on Fri, 15 Jan 2016 16:12:06 GMT</p>
+    <p>Automatically generated with JSDoc on Tue, 14 Jun 2016 07:24:17 GMT</p>
     </footer>
   </div>
   <script type="text/javascript">

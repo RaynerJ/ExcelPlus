@@ -39,7 +39,7 @@
           
             
             <li class="dropdown">
-              <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">ExcelPlus() (13)<b class="caret"></b></a>
+              <a href="#nogo" class="dropdown-toggle" data-toggle="dropdown">ExcelPlus() (16)<b class="caret"></b></a>
               
               <ul class="dropdown-menu">
               
@@ -68,7 +68,13 @@
               
                 <li><a href="../symbols/ExcelPlus%28%29.html#.selectSheet">selectSheet</a></li>
               
+                <li><a href="../symbols/ExcelPlus%28%29.html#.write">write</a></li>
+              
                 <li><a href="../symbols/ExcelPlus%28%29.html#.writeCell">writeCell</a></li>
+              
+                <li><a href="../symbols/ExcelPlus%28%29.html#.writeNextRow">writeNextRow</a></li>
+              
+                <li><a href="../symbols/ExcelPlus%28%29.html#.writeRow">writeRow</a></li>
               
               </ul>
               
@@ -129,7 +135,13 @@
           
           <li><a href="../symbols/ExcelPlus%28%29.html#.selectSheet">selectSheet</a></li>
           
+          <li><a href="../symbols/ExcelPlus%28%29.html#.write">write</a></li>
+          
           <li><a href="../symbols/ExcelPlus%28%29.html#.writeCell">writeCell</a></li>
+          
+          <li><a href="../symbols/ExcelPlus%28%29.html#.writeNextRow">writeNextRow</a></li>
+          
+          <li><a href="../symbols/ExcelPlus%28%29.html#.writeRow">writeRow</a></li>
           
         </ul>
         
@@ -554,6 +566,36 @@ It actually uses the `XLSX.write()` function</blockquote>
         </div>
         
         <div class="member">
+          <h2><a href="#.write" name=".write" title="Direct link to the method 'write'">write</a></h2>
+          <div>
+            <div class="method well">write(options, sheet, cell, content)</div>
+          </div>
+          <blockquote class="description">Write values into the workbook</blockquote>
+          
+          
+          
+          
+          
+          <div class="parameters">
+            <h3>Parameters:</h3>
+            <div class="parameter row-fluid">  <div class="type span2">Object</div>  <div class="name span3"><b data-param="options">options</b> </div>  <div class="param_description span7"></div></div><div class="parameter row-fluid">  <div class="type span2">String</div>  <div class="name span3"><b data-param="sheet">sheet</b> <i>Optional</i></div>  <div class="param_description span7">You can give the name of the sheet where to write, or the current selected sheet will be use, or the first sheet will be used</div></div><div class="parameter row-fluid">  <div class="type span2">String</div>  <div class="name span3"><b data-param="cell">cell</b> <i>Optional</i></div>  <div class="param_description span7">You can specify the cell reference (e.g. "A1")</div></div><div class="parameter row-fluid">  <div class="type span2">String|Boolean|Number|Date|Array</div>  <div class="name span3"><b data-param="content">content</b> </div>  <div class="param_description span7">If it's an arrya then we ignore the "cell" param (e.g. [ [ "Content Cell A1", "Content Cell B1" ] [ "Content Cell A2", "Content Cell B2" ] ], otherwise the "cell" needs to be provided</div></div>
+          </div>
+          
+          
+          
+          
+          
+          
+          
+
+          
+          
+          
+
+          <hr />
+        </div>
+        
+        <div class="member">
           <h2><a href="#.writeCell" name=".writeCell" title="Direct link to the method 'writeCell'">writeCell</a></h2>
           <div>
             <div class="method well">writeCell(cell, content)</div>
@@ -580,6 +622,76 @@ It actually uses the `XLSX.write()` function</blockquote>
           
           
 
+          <hr />
+        </div>
+        
+        <div class="member">
+          <h2><a href="#.writeNextRow" name=".writeNextRow" title="Direct link to the method 'writeNextRow'">writeNextRow</a></h2>
+          <div>
+            <div class="method well">writeNextRow(content)</div>
+          </div>
+          <blockquote class="description">Write on the next available row for the current selected sheet</blockquote>
+          
+          
+          
+          
+          
+          <div class="parameters">
+            <h3>Parameters:</h3>
+            <div class="parameter row-fluid">  <div class="type span2">Array</div>  <div class="name span3"><b data-param="content">content</b> </div>  <div class="param_description span7">This is the values for each cell of the row (could be `null`)</div></div>
+          </div>
+          
+          
+          
+          
+          
+          
+          
+          <h3>Example:</h3>
+          
+          <pre class="prettyprint lang-js">  ep.writeRow(["Paris 1", "75001", "France"]);</pre>
+          
+          
+
+          
+          
+          
+
+          <hr />
+        </div>
+        
+        <div class="member">
+          <h2><a href="#.writeRow" name=".writeRow" title="Direct link to the method 'writeRow'">writeRow</a></h2>
+          <div>
+            <div class="method well">writeRow(row, content)</div>
+          </div>
+          <blockquote class="description">Write a full row for the current selected sheet</blockquote>
+          
+          
+          
+          
+          
+          <div class="parameters">
+            <h3>Parameters:</h3>
+            <div class="parameter row-fluid">  <div class="type span2">String</div>  <div class="name span3"><b data-param="row">row</b> </div>  <div class="param_description span7">The row reference (e.g. "1" for the first row in the sheet)</div></div><div class="parameter row-fluid">  <div class="type span2">Array</div>  <div class="name span3"><b data-param="content">content</b> </div>  <div class="param_description span7">This is the values for each cell of the row (could be `null`)</div></div>
+          </div>
+          
+          
+          
+          
+          
+          
+          
+          <h3>Example:</h3>
+          
+          <pre class="prettyprint lang-js">  ep.writeRow(1, ["City", "Postal Code", "Country"]);  ep.writeRow(2, ["Montpellier", "34000", "France"]);</pre>
+          
+          
+
+          
+          
+          
+
           
         </div>
         
@@ -593,7 +705,7 @@ It actually uses the `XLSX.write()` function</blockquote>
 <p>This work is licensed under <a rel="license" href="http://aymkdn.github.com/SharepointPlus/license.txt">GPL v2</a>.</p>
 <p>Designed with <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter</a>.</p>
 
-    <p>Automatically generated with JSDoc on Fri, 15 Jan 2016 16:12:06 GMT</p>
+    <p>Automatically generated with JSDoc on Tue, 14 Jun 2016 07:24:17 GMT</p>
     </footer>
   </div>
   <script type="text/javascript">
